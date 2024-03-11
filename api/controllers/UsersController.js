@@ -8,7 +8,7 @@ module.exports = {
     create: async function (req, res) {
         try {
             const user = await Users.findOne({ email: req.body.email });
-            if(user){
+            if (user) {
                 sails.log.error('Usuário já cadastrado');
                 return res.status(401).json({ message: 'E-mail já cadastrado!' });
             }
@@ -46,6 +46,50 @@ module.exports = {
             const token = jwt.sign({ id: user.id }, process.env.TOKEN);
             delete user.password;
             return res.json({ token: token, user: user });
+        } catch (err) {
+            return res.serverError(err);
+        }
+    },
+    generateToken: async function (req, res) {
+        try {
+            const email = req.body.email;
+            const user = await Users.findOne({ email: email });
+
+            if (user) {
+                const token = jwt.sign({ userId: user.id }, process.env.TOKEN, {
+                    expiresIn: '24h'
+                });
+
+                await Users.updateOne({ email: email }).set({ retrieveToken: token });
+                const emailResponse = await sails.helpers.sendEmail(token);
+
+                return res.json({ token: token, user: user, emailResponse: emailResponse });
+            }
+            res.status(404);
+            return res.json({ message: 'Email inválido ', email });
+
+        } catch (err) {
+            return res.serverError(err);
+        }
+    },
+    resetPassword: async function (req, res) {
+        try {
+            const token = req.body.token;
+            const user = await Users.findOne({
+                retrieveToken: token
+            })
+
+            if (!user) {
+                return res.status(404).json({
+                    message:
+                        'Token expirado ou inválido!'
+                });
+            }
+            const passwordHash = await bcrypt.hash(req.body.password, 10);
+
+            await Users.updateOne({ id: user.id }).set({ password: passwordHash, retrieveToken: '' });
+            return res.json({ message: 'Senha atualizada com sucesso' });
+
         } catch (err) {
             return res.serverError(err);
         }
