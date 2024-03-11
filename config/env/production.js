@@ -47,30 +47,8 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     default: {
-      // adapter: 'sails-mysql',
-      // url: 'mysql://user:password@host:port/database',
-      //--------------------------------------------------------------------------
-      //  /\   To avoid checking it in to version control, you might opt to set
-      //  ||   sensitive credentials like `url` using an environment variable.
-      //
-      //  For example:
-      //  ```
-      //  sails_datastores__default__url=mysql://admin:myc00lpAssw2D@db.example.com:3306/my_prod_db
-      //  ```
-      //--------------------------------------------------------------------------
-
-      /****************************************************************************
-      *                                                                           *
-      * More adapter-specific options                                             *
-      *                                                                           *
-      * > For example, for some hosted PostgreSQL providers (like Heroku), the    *
-      * > extra `ssl` object with a `rejectUnauthorized` option must be provided. *
-      *                                                                           *
-      * More info:                                                                *
-      * https://sailsjs.com/config/datastores                                     *
-      *                                                                           *
-      ****************************************************************************/
-      // ssl: { rejectUnauthorized: true },
+      //url: 'mongodb://clubepermuta:943NBgp673@desenv.kukac.com.br:9702/?authMechanism=DEFAULT&tls=false',
+     
 
     },
 
@@ -80,43 +58,11 @@ module.exports = {
 
   models: {
 
-    /***************************************************************************
-    *                                                                          *
-    * To help avoid accidents, Sails automatically sets the automigration      *
-    * strategy to "safe" when your app lifts in production mode.               *
-    * (This is just here as a reminder.)                                       *
-    *                                                                          *
-    * More info:                                                               *
-    * https://sailsjs.com/docs/concepts/models-and-orm/model-settings#?migrate *
-    *                                                                          *
-    ***************************************************************************/
+   
     migrate: 'safe',
-
-    /***************************************************************************
-    *                                                                          *
-    * If, in production, this app has access to physical-layer CASCADE         *
-    * constraints (e.g. PostgreSQL or MySQL), then set those up in the         *
-    * database and uncomment this to disable Waterline's `cascadeOnDestroy`    *
-    * polyfill.  (Otherwise, if you are using a databse like Mongo, you might  *
-    * choose to keep this enabled.)                                            *
-    *                                                                          *
-    ***************************************************************************/
-    // cascadeOnDestroy: false,
 
   },
 
-
-
-  /**************************************************************************
-  *                                                                         *
-  * Always disable "shortcut" blueprint routes.                             *
-  *                                                                         *
-  * > You'll also want to disable any other blueprint routes if you are not *
-  * > actually using them (e.g. "actions" and "rest") -- but you can do     *
-  * > that in `config/blueprints.js`, since you'll want to disable them in  *
-  * > all environments (not just in production.)                            *
-  *                                                                         *
-  ***************************************************************************/
   blueprints: {
     shortcuts: false,
   },
