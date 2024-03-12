@@ -77,11 +77,11 @@ module.exports = {
             const token = req.body.token;
             const user = await Users.findOne({
                 retrieveToken: token
-            })
+            });
 
             if (!user) {
                 return res.status(404).json({ message: 'Token expirado ou inválido!' });
-            }
+            };
             const passwordHash = await bcrypt.hash(req.body.password, 10);
 
             await Users.updateOne({ id: user.id }).set({ password: passwordHash, retrieveToken: '' });

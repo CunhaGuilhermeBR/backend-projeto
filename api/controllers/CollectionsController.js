@@ -5,7 +5,7 @@ module.exports = {
         try {
             if (!StatusEnum.includes(req.body.status)) {
                 res.status(422);
-                res.json({ message: 'Status incorreto!' })
+                return res.json({ message: 'Status incorreto!' })
             };
             const newCollection = await Collections.create({
                 status: req.body.status,
@@ -17,12 +17,12 @@ module.exports = {
             return res.serverError(err);
         }
     },
-    findByStatus: async function (req, res) {
+    getByStatus: async function (req, res) {
         try {
             const { status } = req.params;
             if (!StatusEnum.includes(status)) {
                 res.status(422);
-                res.json({ message: 'Status incorreto!' })
+                return res.json({ message: 'Status incorreto!' })
             };
             const collections = await Collections.find({ status: status });
             return res.json(collections);
@@ -30,14 +30,14 @@ module.exports = {
             return res.serverError(err);
         }
     },
-    findByUser: async function (req, res) {
+    getByUser: async function (req, res) {
         try {
-            const { user_id } = req.params;
+            const { user_id, status } = req.params;
             if (!user_id) {
                 res.status(400);
                 return res.json({ message: 'Nenhum id foi passado!' });
             };
-            const collections = await Collections.find({ user_id: user_id });
+            const collections = await Collections.find({ user_id: user_id, status: status });
             return res.json(collections);
         } catch (err) {
             return res.serverError(err);
