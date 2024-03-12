@@ -21,7 +21,7 @@ module.exports.http = {
         await sails.helpers.authentication(req.headers.token);
         next();
       } catch (err) {
-        res.status(err.status || 400)
+        res.status(err.status || 401)
         return res.json(err);
       }
 
