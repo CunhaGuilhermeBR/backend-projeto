@@ -23,6 +23,10 @@ module.exports = {
       type: 'string',
       required: false
     },
+    playtime: {
+      type: 'number',
+      required: false
+    }
   },
 
 };

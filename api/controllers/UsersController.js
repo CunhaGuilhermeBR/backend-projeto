@@ -80,10 +80,7 @@ module.exports = {
             })
 
             if (!user) {
-                return res.status(404).json({
-                    message:
-                        'Token expirado ou inválido!'
-                });
+                return res.status(404).json({ message: 'Token expirado ou inválido!' });
             }
             const passwordHash = await bcrypt.hash(req.body.password, 10);
 
