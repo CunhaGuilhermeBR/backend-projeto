@@ -1,26 +1,16 @@
 # games-list
 
-a [Sails v1](https://sailsjs.com) application
+# API Gateway
 
+Agora toda requisição devera ser feita ao API Gateway e não ao módulo, o gateway irá fazer a requisição ao módulo correto e retornar! Tudo é feito através da rota POST /makeRequest. Nela você envia ou não o body e ele repassa, no headers você coloca as informações da requisição, sendo elas:
 
-### Links
+- method: qual o metodo HTTP você quer utilizar(GET, POST, PUT, DELETE, PATCH);
+- module: qual módulo você deseja chamar;
+- route: qual rota você quer chamar;
+- token: o token de autorização;
 
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+Ainda tem a query de pesquisa em algumas rotas, sendo composta de dois campos:
 
-### How to run
-
-# Requirements
-
-Node ^18.12.1
-Sails
-Qualquer IDE
-
-# Run
-
-Depois de clonar a aplicação e ter verificado a versão do Node. Digite o comando 'npm i'. Quando acabar crie o arquivo '.env', nele insira as variáveis corretamente e depois rode o comando 'sails lift'!
-
+- searchQuery: a query de pesquisa em si;
+- page: qual a página da pesquisa você quer
 
